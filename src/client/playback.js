@@ -20,7 +20,9 @@ export function criarPlayback(ctx, estado) {
     let bus = null;
     let aviso = false;
     const agora = () => (typeof performance !== 'undefined' ? performance.now() : Date.now());
-    const volumeDe = (nome) => estado.volume * (estado.volumes.get(nome.toLowerCase()) ?? 1);
+    // o volume de todos vezes o DESTA pessoa (0 a 200%). O teto é o do motor para UM stream (4): o mod nunca chega
+    // lá — 1 × 2 —, mas quem lê este arquivo não precisa ir conferir o limite do outro lado para ter certeza.
+    const volumeDe = (nome) => Math.min(4, estado.volume * (estado.volumes.get(nome.toLowerCase()) ?? 1));
     /** This mod's audio channel, created on the first voice: before that there is no AudioContext to spend. */
     function canal() {
         if (!bus)

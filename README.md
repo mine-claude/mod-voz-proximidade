@@ -1,10 +1,10 @@
 # Voz por proximidade
 
-Mod do [MineClaude](https://mineclaude.com). Id `voz_proximidade`, versão `0.1.0`. Repositório privado.
+Mod do [MineClaude](https://mineclaude.com). Id `voz_proximidade`, versão `0.2.0`. Repositório privado.
 
 ## O que ele faz
 
-Chat de voz por PROXIMIDADE, inteiro como mod: o microfone é capturado por ctx.client.media (desligado por padrão, apertar-para-falar), vai em Opus por um canal de alto volume (ctx.net.channel com bulk), o SERVIDOR só repassa a quem está perto (mesma dimensão ou a mesma sala) e o navegador toca cada voz em 3D por bus.stream do ctx.audio, com buffer de jitter. Sem WebRTC e sem servidor de fora: o áudio não sai do servidor do jogo e ninguém vê o IP de ninguém. Nada é gravado. Regra de jogo para desligar, indicador no HUD de quem está falando, silenciar jogador e volume na tela /voz. Arte por código.
+Chat de voz por PROXIMIDADE, inteiro como mod: o microfone é capturado por ctx.client.media (desligado por padrão, apertar-para-falar), vai em Opus por um canal de alto volume (ctx.net.channel com bulk), o SERVIDOR só repassa a quem está perto (mesma dimensão ou a mesma sala) e o navegador toca cada voz em 3D por bus.stream do ctx.audio, com buffer de jitter. Sem WebRTC e sem servidor de fora: o áudio não sai do servidor do jogo e ninguém vê o IP de ninguém. Nada é gravado. TELA DE OPÇÕES em três portas — Esc → Voz, a tecla J e /voz — com escolha do microfone, ganho até 300%, teste para ouvir-se, limiar da voz aberta, supressão de ruído/eco/ganho automático, volume e silêncio por pessoa e volume de todos, tudo guardado neste navegador. Regra de jogo para desligar e indicador no HUD de quem está falando. Arte por código.
 
 ## Instalar
 
@@ -23,14 +23,14 @@ Só precisa do [Bun](https://bun.sh) — nada do repositório do jogo:
 bun tools/pack.mjs
 ```
 
-Sai um `voz_proximidade-0.1.0.mcmod` determinístico (mesma entrada, mesmos bytes).
+Sai um `voz_proximidade-0.2.0.mcmod` determinístico (mesma entrada, mesmos bytes).
 
 ## Publicar uma versão
 
 Suba a `version` no `package.json`, comite, e marque:
 
 ```
-git tag v0.1.0 && git push origin v0.1.0
+git tag v0.2.0 && git push origin v0.2.0
 ```
 
 O workflow `.github/workflows/release.yml` monta, empacota e cria a Release com o `.mcmod` anexado.

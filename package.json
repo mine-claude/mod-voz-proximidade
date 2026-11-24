@@ -1,7 +1,7 @@
 {
   "name": "voz_proximidade",
-  "version": "0.1.0",
-  "description": "Chat de voz por PROXIMIDADE, inteiro como mod: o microfone é capturado por ctx.client.media (desligado por padrão, apertar-para-falar), vai em Opus por um canal de alto volume (ctx.net.channel com bulk), o SERVIDOR só repassa a quem está perto (mesma dimensão ou a mesma sala) e o navegador toca cada voz em 3D por bus.stream do ctx.audio, com buffer de jitter. Sem WebRTC e sem servidor de fora: o áudio não sai do servidor do jogo e ninguém vê o IP de ninguém. Nada é gravado. Regra de jogo para desligar, indicador no HUD de quem está falando, silenciar jogador e volume na tela /voz. Arte por código.",
+  "version": "0.2.0",
+  "description": "Chat de voz por PROXIMIDADE, inteiro como mod: o microfone é capturado por ctx.client.media (desligado por padrão, apertar-para-falar), vai em Opus por um canal de alto volume (ctx.net.channel com bulk), o SERVIDOR só repassa a quem está perto (mesma dimensão ou a mesma sala) e o navegador toca cada voz em 3D por bus.stream do ctx.audio, com buffer de jitter. Sem WebRTC e sem servidor de fora: o áudio não sai do servidor do jogo e ninguém vê o IP de ninguém. Nada é gravado. TELA DE OPÇÕES em três portas — Esc → Voz, a tecla J e /voz — com escolha do microfone, ganho até 300%, teste para ouvir-se, limiar da voz aberta, supressão de ruído/eco/ganho automático, volume e silêncio por pessoa e volume de todos, tudo guardado neste navegador. Regra de jogo para desligar e indicador no HUD de quem está falando. Arte por código.",
   "authors": [
     "MineClaude"
   ],
