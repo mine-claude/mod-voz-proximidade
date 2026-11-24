@@ -1,0 +1,3 @@
+dist/
+*.mcmod
+node_modules/

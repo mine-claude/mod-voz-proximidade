@@ -1,0 +1,50 @@
+name: release
+# A tag `v<version>` (or a manual run) builds the mod and publishes the .mcmod as a GitHub Release asset.
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2.2.0
+        with:
+          bun-version: latest
+
+      - name: Build and pack the .mcmod
+        run: bun tools/pack.mjs
+
+      # Two names for the same package: the one with the version, and the bare `<id>.mcmod` the
+      # server requires when the file is dropped straight into MODS_DIR.
+      - name: Name the files
+        id: files
+        run: |
+          set -euo pipefail
+          version="$(jq -r .version package.json)"
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          test -f "voz_proximidade-$version.mcmod"
+          cp "voz_proximidade-$version.mcmod" "voz_proximidade.mcmod"
+
+      - name: Publish the Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          version="${{ steps.files.outputs.version }}"
+          tag="${{ github.ref_type == 'tag' && github.ref_name || '' }}"
+          [ -n "$tag" ] || tag="v$version"
+          # Re-running the same tag replaces the assets instead of failing the run.
+          if gh release view "$tag" >/dev/null 2>&1; then
+            gh release upload "$tag" "voz_proximidade-$version.mcmod" "voz_proximidade.mcmod" --clobber
+          else
+            gh release create "$tag" "voz_proximidade-$version.mcmod" "voz_proximidade.mcmod" \
+              --title "v$version" \
+              --notes "Mod \`voz_proximidade\` v$version. Ponha \`voz_proximidade.mcmod\` na MODS_DIR do servidor, ou use \`/mod previa <link>\`."
+          fi
